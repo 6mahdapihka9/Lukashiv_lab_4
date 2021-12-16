@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Лабораторна робота №4. Кулеш О.В.</title>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<header>
+  <h1>Лабораторна робота №4</h1>
+  <h1>Розробка експертної системи з ймовірнісними правилами</h1>
+  <h1>Тема: Вибір вищого навчального закладу абітурієнтом</h1>
+</header>
+<form id="form" onsubmit="handleSubmitForm(event); return false">
+  <div class="block">
+    <div class="input-block">
+      <label for="region">Область</label>
+      <select id="region" name="region">
+        <option value=""></option>
+        <option value='Автономна Республіка Крим'>Автономна Республіка Крим</option>
+        <option value='Вінницька область'>Вінницька область</option>
+        <option value='Волинська область'>Волинська область</option>
+        <option value='Дніпропетровська область'>Дніпропетровська область</option>
+        <option value='Донецька область'>Донецька область</option>
+        <option value='Житомирська область'>Житомирська область</option>
+        <option value='Закарпатська область'>Закарпатська область</option>
+        <option value='Запорізька область'>Запорізька область</option>
+        <option value='Івано-Франківська область'>Івано-Франківська область</option>
+        <option value='Київська область'>Київська область</option>
+        <option value='Кіровоградська область'>Кіровоградська область</option>
+        <option value='Луганська область'>Луганська область</option>
+        <option value='Львівська область'>Львівська область</option>
+        <option value='Миколаївська область'>Миколаївська область</option>
+        <option value='Одеська область'>Одеська область</option>
+        <option value='Полтавська область'>Полтавська область</option>
+        <option value='Рівненська область'>Рівненська область</option>
+        <option value='Сумська область'>Сумська область</option>
+        <option value='Тернопільська область'>Тернопільська область</option>
+        <option value='Харківська область'>Харківська область</option>
+        <option value='Херсонська область'>Херсонська область</option>
+        <option value='Хмельницька область'>Хмельницька область</option>
+        <option value='Черкаська область'>Черкаська область</option>
+        <option value='Чернівецька область'>Чернівецька область</option>
+        <option value='Чернігівська область'>Чернігівська область</option>
+      </select>
+    </div>
+
+    <div class="input-block">
+      <label for="pr-region">Пріорітет</label>
+      <input id="pr-region" class="priority" name="pr-region" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+      <span id="pr-region-span">6</span>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <div class="input-block">
+      <label for="educational-program">Освітня програма</label>
+      <input id="educational-program" name="educational-program">
+    </div>
+
+    <div class="input-block">
+      <label for="pr-educational-program">Пріорітет</label>
+      <input id="pr-educational-program" class="priority" name="pr-educational-program" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+      <span id="pr-educational-program-span">6</span>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <div class="input-block">
+      <label for="branch">Галузь</label>
+<!--      <input id="branch" name="branch">-->
+      <select id="branch" name="branch">
+        <option value=''></option>
+        <option value='Культура і мистецтво'>Культура і мистецтво</option>
+        <option value='Біологія'>Біологія</option>
+        <option value='Хімічна та біоінженерія'>Хімічна та біоінженерія</option>
+        <option value='Природничі науки'>Природничі науки</option>
+        <option value='Архітектура та будівництво'>Архітектура та будівництво</option>
+        <option value='Соціальні та поведінкові науки'>Соціальні та поведінкові науки</option>
+        <option value='Електроніка та телекомунікації'>Електроніка та телекомунікації</option>
+        <option value='Журналістика'>Журналістика</option>
+        <option value='Інформаційні технології'>Інформаційні технології</option>
+        <option value='Гуманітарні науки'>Гуманітарні науки</option>
+        <option value='Управління та адміністрування'>Управління та адміністрування</option>
+        <option value='Математика та статистика'>Математика та статистика</option>
+        <option value='Автоматизація та приладобудування'>Автоматизація та приладобудування</option>
+        <option value='Міжнародні відносини'>Міжнародні відносини</option>
+        <option value='Право'>Право</option>
+        <option value='Публічне управління та адміністрування'>Публічне управління та адміністрування</option>
+        <option value='Аграрні науки та продовольство'>Аграрні науки та продовольство</option>
+        <option value='Освіта/Педагогіка'>Освіта/Педагогіка</option>
+        <option value='Соціальна робота'>Соціальна робота</option>
+        <option value='Охорона здоров’я'>Охорона здоров’я</option>
+        <option value='Сфера обслуговування'>Сфера обслуговування</option>
+        <option value='Механічна інженерія'>Механічна інженерія</option>
+        <option value='Електрична інженерія'>Електрична інженерія</option>
+        <option value='Виробництво та технології'>Виробництво та технології</option>
+        <option value='Транспорт'>Транспорт</option>
+        <option value='Цивільна безпека'>Цивільна безпека</option>
+        <option value='Богослов’я'>Богослов’я</option>
+        <option value='Воєнні науки, національна безпека, безпека державного кордону'>Воєнні науки, національна безпека, безпека державного кордону</option>
+      </select>
+    </div>
+
+    <div class="input-block">
+      <label for="pr-branch">Пріорітет</label>
+      <input id="pr-branch" class="priority" name="pr-branch" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+      <span id="pr-branch-span">6</span>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <div class="input-block">
+      <label for="technical-or-humanitarian">Технічні або Гуманітарні</label>
+      <select id="technical-or-humanitarian" name="technical-or-humanitarian">
+        <option value=""></option>
+        <option value="Технічні науки">Технічні науки</option>
+        <option value="Гуманітарні науки">Гуманітарні науки</option>
+      </select>
+    </div>
+
+    <div class="input-block">
+      <label for="pr-technical-or-humanitarian">Пріорітет</label>
+      <input id="pr-technical-or-humanitarian" class="priority" name="pr-technical-or-humanitarian" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+      <span id="pr-technical-or-humanitarian-span">6</span>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <div class="input-block">
+      <label for="education-form">Форма навчання</label>
+      <select id="education-form" name="education-form">
+        <option value=""></option>
+        <option value="Денна форма">Денна форма</option>
+        <option value="Заочна форма">Заочна форма</option>
+        <option value="Вечірня форма">Вечірня форма</option>
+        <option value="Дистанційна форма">Дистанційна форма</option>
+      </select>
+    </div>
+
+    <div class="input-block">
+      <label for="pr-education-form">Пріорітет</label>
+      <input id="pr-education-form" class="priority" name="pr-education-form" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+      <span id="pr-education-form-span">6</span>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <div class="input-block">
+      <label for="offer-type">Тип пропозиції</label>
+      <select id="offer-type" name="offer-type">
+        <option value=""></option>
+        <option value="Фіксована">Фіксована</option>
+        <option value="Небюджетна">Небюджетна</option>
+        <option value="Відкрита">Відкрита</option>
+      </select>
+    </div>
+
+    <div class="input-block">
+      <label for="pr-offer-type">Пріорітет</label>
+      <input id="pr-offer-type" class="priority" name="pr-offer-type" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+      <span id="pr-offer-type-span">6</span>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <div class="input-block">
+      <label for="specialty">Спеціальність</label>
+      <select id="specialty" name="specialty">
+        <option value=""></option>
+        <option value="011 Освітні, педагогічні науки">011 Освітні, педагогічні науки</option>
+        <option value="012 Дошкільна освіта">012 Дошкільна освіта</option>
+        <option value="013 Початкова освіта">013 Початкова освіта</option>
+        <option value="014 Середня освіта">014 Середня освіта</option>
+        <option value="015 Професійна освіта">015 Професійна освіта</option>
+        <option value="016 Спеціальна освіта">016 Спеціальна освіта</option>
+        <option value="017 Фізична культура і спорт">017 Фізична культура і спорт</option>
+        <option value="021 Аудіовізуальне мистецтво та виробництво">021 Аудіовізуальне мистецтво та виробництво</option>
+        <option value="022 Дизайн">022 Дизайн</option>
+        <option value="023 Образотворче мистецтво, декоративне мистецтво, реставрація">023 Образотворче мистецтво,
+          декоративне мистецтво, реставрація
+        </option>
+        <option value="024 Хореографія">024 Хореографія</option>
+        <option value="025 Музичне мистецтво">025 Музичне мистецтво</option>
+        <option value="026 Сценічне мистецтво">026 Сценічне мистецтво</option>
+        <option value="027 Музеєзнавство, пам’яткознавство">027 Музеєзнавство, пам’яткознавство</option>
+        <option value="028 Менеджмент соціокультурної діяльності">028 Менеджмент соціокультурної діяльності</option>
+        <option value="029 Інформаційна, бібліотечна та архівна справа">029 Інформаційна, бібліотечна та архівна справа
+        </option>
+        <option value="031 Релігієзнавство">031 Релігієзнавство</option>
+        <option value="032 Історія та археологія">032 Історія та археологія</option>
+        <option value="033 Філософія">033 Філософія</option>
+        <option value="034 Культурологія">034 Культурологія</option>
+        <option value="035 Філологія">035 Філологія</option>
+        <option value="041 Богослов'я">041 Богослов'я</option>
+        <option value="051 Економіка">051 Економіка</option>
+        <option value="052 Політологія">052 Політологія</option>
+        <option value="053 Психологія">053 Психологія</option>
+        <option value="054 Соціологія">054 Соціологія</option>
+        <option value="061 Журналістика">061 Журналістика</option>
+        <option value="071 Облік і оподаткування">071 Облік і оподаткування</option>
+        <option value="072 Фінанси, банківська справа та страхування">072 Фінанси, банківська справа та страхування
+        </option>
+        <option value="073 Менеджмент">073 Менеджмент</option>
+        <option value="075 Маркетинг">075 Маркетинг</option>
+        <option value="076 Підприємництво, торгівля та біржова діяльність">076 Підприємництво, торгівля та біржова
+          діяльність
+        </option>
+        <option value="081 Право">081 Право</option>
+        <option value="091 Біологія">091 Біологія</option>
+        <option value="101 Екологія">101 Екологія</option>
+        <option value="102 Хімія">102 Хімія</option>
+        <option value="103 Науки про Землю">103 Науки про Землю</option>
+        <option value="104 Фізика та астрономія">104 Фізика та астрономія</option>
+        <option value="105 Прикладна фізика та наноматеріали">105 Прикладна фізика та наноматеріали</option>
+        <option value="106 Географія">106 Географія</option>
+        <option value="111 Математика">111 Математика</option>
+        <option value="112 Статистика">112 Статистика</option>
+        <option value="113 Прикладна математика">113 Прикладна математика</option>
+        <option value="121 Інженерія програмного забезпечення">121 Інженерія програмного забезпечення</option>
+        <option value="122 Комп'ютерні науки">122 Комп'ютерні науки</option>
+        <option value="123 Комп'ютерна інженерія">123 Комп'ютерна інженерія</option>
+        <option value="124 Системний аналіз">124 Системний аналіз</option>
+        <option value="125 Кібербезпека">125 Кібербезпека</option>
+        <option value="126 Інформаційні системи та технології">126 Інформаційні системи та технології</option>
+        <option value="131 Прикладна механіка">131 Прикладна механіка</option>
+        <option value="132 Матеріалознавство">132 Матеріалознавство</option>
+        <option value="133 Галузеве машинобудування">133 Галузеве машинобудування</option>
+        <option value="134 Авіаційна та ракетно-космічна техніка">134 Авіаційна та ракетно-космічна техніка</option>
+        <option value="135 Суднобудування">135 Суднобудування</option>
+        <option value="136 Металургія">136 Металургія</option>
+        <option value="141 Електроенергетика, електротехніка та електромеханіка">141 Електроенергетика, електротехніка
+          та
+          електромеханіка
+        </option>
+        <option value="142 Енергетичне машинобудування">142 Енергетичне машинобудування</option>
+        <option value="143 Атомна енергетика">143 Атомна енергетика</option>
+        <option value="144 Теплоенергетика">144 Теплоенергетика</option>
+        <option value="145 Гідроенергетика">145 Гідроенергетика</option>
+        <option value="151 Автоматизація та комп’ютерно-інтегровані технології">151 Автоматизація та
+          комп’ютерно-інтегровані технології
+        </option>
+        <option value="152 Метрологія та інформаційно-вимірювальна техніка">152 Метрологія та інформаційно-вимірювальна
+          техніка
+        </option>
+        <option value="153 Мікро- та наносистемна техніка">153 Мікро- та наносистемна техніка</option>
+        <option value="161 Хімічні технології та інженерія">161 Хімічні технології та інженерія</option>
+        <option value="162 Біотехнології та біоінженерія">162 Біотехнології та біоінженерія</option>
+        <option value="163 Біомедична інженерія">163 Біомедична інженерія</option>
+        <option value="171 Електроніка">171 Електроніка</option>
+        <option value="172 Телекомунікації та радіотехніка">172 Телекомунікації та радіотехніка</option>
+        <option value="173 Авіоніка">173 Авіоніка</option>
+        <option value="181 Харчові технології">181 Харчові технології</option>
+        <option value="182 Технології легкої промисловості">182 Технології легкої промисловості</option>
+        <option value="183 Технології захисту навколишнього середовища">183 Технології захисту навколишнього середовища
+        </option>
+        <option value="184 Гірництво">184 Гірництво</option>
+        <option value="185 Нафтогазова інженерія та технології">185 Нафтогазова інженерія та технології</option>
+        <option value="186 Видавництво та поліграфія">186 Видавництво та поліграфія</option>
+        <option value="187 Деревообробні та меблеві технології">187 Деревообробні та меблеві технології</option>
+        <option value="191 Архітектура та містобудування">191 Архітектура та містобудування</option>
+        <option value="192 Будівництво та цивільна інженерія">192 Будівництво та цивільна інженерія</option>
+        <option value="193 Геодезія та землеустрій">193 Геодезія та землеустрій</option>
+        <option value="194 Гідротехнічне будівництво, водна інженерія та водні технології">194 Гідротехнічне
+          будівництво,
+          водна інженерія та водні технології
+        </option>
+        <option value="201 Агрономія">201 Агрономія</option>
+        <option value="202 Захист і карантин рослин">202 Захист і карантин рослин</option>
+        <option value="203 Садівництво та виноградарство">203 Садівництво та виноградарство</option>
+        <option value="204 Технологія виробництва і переробки продукції тваринництва">204 Технологія виробництва і
+          переробки продукції тваринництва
+        </option>
+        <option value="205 Лісове господарство">205 Лісове господарство</option>
+        <option value="206 Садово-паркове господарство">206 Садово-паркове господарство</option>
+        <option value="207 Водні біоресурси та аквакультура">207 Водні біоресурси та аквакультура</option>
+        <option value="208 Агроінженерія">208 Агроінженерія</option>
+        <option value="222 Медицина">222 Медицина</option>
+        <option value="223 Медсестринство">223 Медсестринство</option>
+        <option value="224 Технології медичної діагностики та лікування">224 Технології медичної діагностики та
+          лікування
+        </option>
+        <option value="226 Фармація, промислова фармація">226 Фармація, промислова фармація</option>
+        <option value="227 Фізична терапія, ерготерапія">227 Фізична терапія, ерготерапія</option>
+        <option value="229 Громадське здоров'я">229 Громадське здоров'я</option>
+        <option value="231 Соціальна робота">231 Соціальна робота</option>
+        <option value="232 Соціальне забезпечення">232 Соціальне забезпечення</option>
+        <option value="241 Готельно-ресторанна справа">241 Готельно-ресторанна справа</option>
+        <option value="242 Туризм">242 Туризм</option>
+        <option value="251 Державна безпека">251 Державна безпека</option>
+        <option value="256 Національна безпека">256 Національна безпека</option>
+        <option value="261 Пожежна безпека">261 Пожежна безпека</option>
+        <option value="262 Правоохоронна діяльність">262 Правоохоронна діяльність</option>
+        <option value="263 Цивільна безпека">263 Цивільна безпека</option>
+        <option value="271 Річковий та морський транспорт">271 Річковий та морський транспорт</option>
+        <option value="272 Авіаційний транспорт">272 Авіаційний транспорт</option>
+        <option value="273 Залізничний транспорт">273 Залізничний транспорт</option>
+        <option value="274 Автомобільний транспорт">274 Автомобільний транспорт</option>
+        <option value="275 Транспортні технології">275 Транспортні технології</option>
+        <option value="281 Публічне управління та адміністрування">281 Публічне управління та адміністрування</option>
+        <option value="291 Міжнародні відносини, суспільні комунікації та регіональні студії">291 Міжнародні відносини,
+          суспільні комунікації та регіональні студії
+        </option>
+        <option value="292 Міжнародні економічні відносини">292 Міжнародні економічні відносини</option>
+        <option value="293 Міжнародне право">293 Міжнародне право</option>
+      </select>
+    </div>
+
+    <div class="input-block">
+      <label for="pr-specialty">Пріорітет</label>
+      <input id="pr-specialty" class="priority" name="pr-specialty" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+      <span id="pr-specialty-span">6</span>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <label for="subjects">Предмети: </label>
+    <div id="subjects" class="block">
+      <div class="input-block">
+        <label for="subject1">Первинний</label>
+        <select id="subject1" name="subject1">
+          <option value=""></option>
+<!--          <option value="Українська мова та література">Українська мова та література</option>-->
+          <option value="Українська мова">Українська мова</option>
+          <option value="Історія України">Історія України</option>
+          <option value="Фізика">Фізика</option>
+          <option value="Творчий конкурс">Творчий конкурс</option>
+          <option value="Біологія">Біологія</option>
+          <option value="Іноземна мова">Іноземна мова</option>
+          <option value="Математика">Математика</option>
+          <option value="Географія">Географія</option>
+          <option value="Хімія">Хімія</option>
+          <option value="Рисунок, живопис">Рисунок, живопис</option>
+          <option value="Рисунок, Композиція">Рисунок, Композиція</option>
+          <option value="Образотворче мистецтво, Композиція">Образотворче мистецтво, Композиція</option>
+          <option value="Історія мистецтва (письмово)">Історія мистецтва (письмово)</option>
+          <option value="Рисунок, скульптура">Рисунок, скульптура</option>
+        </select>
+      </div>
+
+      <div class="input-block">
+        <label for="pr-subject1">Пріорітет</label>
+        <input id="pr-subject1" class="priority" name="pr-subject1" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+        <span id="pr-subject1-span">6</span>
+      </div>
+
+      <div class="input-block">
+        <label for="subject2">Вторинний</label>
+        <select id="subject2" name="subject2">
+          <option value=""></option>
+<!--          <option value="Українська мова та література">Українська мова та література</option>-->
+          <option value="Українська мова">Українська мова</option>
+          <option value="Історія України">Історія України</option>
+          <option value="Фізика">Фізика</option>
+          <option value="Творчий конкурс">Творчий конкурс</option>
+          <option value="Біологія">Біологія</option>
+          <option value="Іноземна мова">Іноземна мова</option>
+          <option value="Математика">Математика</option>
+          <option value="Географія">Географія</option>
+          <option value="Хімія">Хімія</option>
+          <option value="Рисунок, живопис">Рисунок, живопис</option>
+          <option value="Рисунок, Композиція">Рисунок, Композиція</option>
+          <option value="Образотворче мистецтво, Композиція">Образотворче мистецтво, Композиція</option>
+          <option value="Історія мистецтва (письмово)">Історія мистецтва (письмово)</option>
+          <option value="Рисунок, скульптура">Рисунок, скульптура</option>
+        </select>
+      </div>
+
+      <div class="input-block">
+        <label for="pr-subject2">Пріорітет</label>
+        <input id="pr-subject2" class="priority" name="pr-subject2" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+        <span id="pr-subject2-span">6</span>
+      </div>
+
+      <div class="input-block">
+        <label for="subject3">Третинний</label>
+        <select id="subject3" name="subject3">
+          <option value=""></option>
+<!--          <option value="Українська мова та література">Українська мова та література</option>-->
+          <option value="Українська мова">Українська мова</option>
+          <option value="Історія України">Історія України</option>
+          <option value="Фізика">Фізика</option>
+          <option value="Творчий конкурс">Творчий конкурс</option>
+          <option value="Біологія">Біологія</option>
+          <option value="Іноземна мова">Іноземна мова</option>
+          <option value="Математика">Математика</option>
+          <option value="Географія">Географія</option>
+          <option value="Хімія">Хімія</option>
+          <option value="Рисунок, живопис">Рисунок, живопис</option>
+          <option value="Рисунок, Композиція">Рисунок, Композиція</option>
+          <option value="Образотворче мистецтво, Композиція">Образотворче мистецтво, Композиція</option>
+          <option value="Історія мистецтва (письмово)">Історія мистецтва (письмово)</option>
+          <option value="Рисунок, скульптура">Рисунок, скульптура</option>
+        </select>
+      </div>
+
+      <div class="input-block">
+        <label for="pr-subject3">Пріорітет</label>
+        <input id="pr-subject3" class="priority" name="pr-subject3" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+        <span id="pr-subject3-span">6</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <div class="input-block">
+      <label for="certificate">Чи враховується бал атестату</label>
+      <input id="certificate" name="certificate" type="checkbox" checked>
+    </div>
+
+    <div class="input-block">
+      <label for="pr-certificate">Пріорітет</label>
+      <input id="pr-certificate" class="priority" name="pr-certificate" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+      <span id="pr-certificate-span">6</span>
+    </div>
+  </div>
+
+
+  <div class="block">
+    <div class="input-block">
+      <label for="rate">Чи враховується рейтинг університету</label>
+      <input id="rate" name="rate" type="checkbox" checked>
+    </div>
+
+    <div class="input-block">
+      <label for="pr-rate">Пріорітет</label>
+      <input id="pr-rate" class="priority" name="pr-rate" oninput="onInputRange(this)" type="range" min="1" max="10" step="1">
+      <span id="pr-rate-span">6</span>
+    </div>
+  </div>
+
+  <button type="submit">Визначити</button>
+</form>
+
+<!--<main>-->
+  <!--    <input id="id" name="id" type="number" value="1">-->
+  <!--    <textarea id="text"></textarea>-->
+  <!--        <button onclick="findBachelors()">Bachelors</button>-->
+  <!--    <button onclick="addBachelor()">Push Bachelor</button>-->
+  <!--    <button onclick="findUniversities()">Universities</button>-->
+  <!--    <button onclick="setRegionToUniversity()">Set region</button>-->
+  <!--    <button onclick="showData()">Show Data</button>-->
+<!--  <button onclick="uniqueData()">Action</button>-->
+<!--</main>-->
+<script src="prune.js"></script>
+<script src="newData.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
+
+<!--    <iframe src="https://ru.osvita.ua/vnz/rating/51741/" id="frame">-->
+<!--    </iframe>-->
+
+<!--    <select id="select">-->
+<!--      <option value='Автономна Республіка Крим'>Автономна Республіка Крим</option>-->
+<!--      <option value='Вінницька область'>Вінницька область</option>-->
+<!--      <option value='Волинська область'>Волинська область</option>-->
+<!--      <option value='Дніпропетровська область'>Дніпропетровська область</option>-->
+<!--      <option value='Донецька область'>Донецька область</option>-->
+<!--      <option value='Житомирська область'>Житомирська область</option>-->
+<!--      <option value='Закарпатська область'>Закарпатська область</option>-->
+<!--      <option value='Запорізька область'>Запорізька область</option>-->
+<!--      <option value='Івано-Франківська область'>Івано-Франківська область</option>-->
+<!--      <option value='Київська область'>Київська область</option>-->
+<!--      <option value='Кіровоградська область'>Кіровоградська область</option>-->
+<!--      <option value='Луганська область'>Луганська область</option>-->
+<!--      <option value='Львівська область'>Львівська область</option>-->
+<!--      <option value='Миколаївська область'>Миколаївська область</option>-->
+<!--      <option value='Одеська область'>Одеська область</option>-->
+<!--      <option value='Полтавська область'>Полтавська область</option>-->
+<!--      <option value='Рівненська область'>Рівненська область</option>-->
+<!--      <option value='Сумська область'>Сумська область</option>-->
+<!--      <option value='Тернопільська область'>Тернопільська область</option>-->
+<!--      <option value='Харківська область'>Харківська область</option>-->
+<!--      <option value='Херсонська область'>Херсонська область</option>-->
+<!--      <option value='Хмельницька область'>Хмельницька область</option>-->
+<!--      <option value='Черкаська область'>Черкаська область</option>-->
+<!--      <option value='Чернівецька область'>Чернівецька область</option>-->
+<!--      <option value='Чернігівська область'>Чернігівська область</option>-->
+<!--    </select>-->
